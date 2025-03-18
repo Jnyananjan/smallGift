@@ -6,49 +6,85 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   </head>
   <body>
-    <a-scene
-      color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
+    <a-scene 
+      embedded 
+      mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/wirdos.mind, https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/batch2k24.mind" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: true"
+      mindar-settings="showStats: false;"
     >
-      <a-assets>
-        <video id="video1" src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try1.mp4" preload="auto" loop></video>
-        <video id="video2" src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try2.mp4" preload="auto" loop></video>
-      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- First Target -->
-      <a-scene mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/wirdos.mind;">
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-        <a-entity mindar-image-target="targetIndex: 0">
-          <a-video id="videoPlayer1" src="#video1" position="0 0 0" width="1.5" height="1" visible="false" webkit-playsinline playsinline></a-video>
-        </a-entity>
-      </a-scene>
-      
-      <!-- Second Target -->
-      <a-scene mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/batch2k24.mind;">
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-        <a-entity mindar-image-target="targetIndex: 0">
-          <a-video id="videoPlayer2" src="#video2" position="0 0 0" width="1.5" height="1" visible="false" webkit-playsinline playsinline></a-video>
-        </a-entity>
-      </a-scene>
+      <!-- Target 1 (wirdos.mind) -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <a-video 
+          id="video1"
+          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try1.mp4"
+          position="0 0 0"
+          width="1.5"
+          height="1"
+          visible="false"
+          autoplay
+          loop
+          webkit-playsinline
+          playsinline
+        ></a-video>
+      </a-entity>
+
+      <!-- Target 2 (batch2k24.mind) -->
+      <a-entity mindar-image-target="targetIndex: 1">
+        <a-video 
+          id="video2"
+          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try2.mp4"
+          position="0 0 0"
+          width="1.5"
+          height="1"
+          visible="false"
+          autoplay
+          loop
+          webkit-playsinline
+          playsinline
+        ></a-video>
+      </a-entity>
+
     </a-scene>
 
     <script>
-      function setupVideoHandlers(targetId, videoId) {
-        document.querySelector("a-scene").addEventListener("targetFound", () => {
-          const video = document.getElementById(videoId);
-          video.setAttribute("visible", "true");
-          video.play();
-        });
-        document.querySelector("a-scene").addEventListener("targetLost", () => {
-          const video = document.getElementById(videoId);
-          video.pause();
-          video.setAttribute("visible", "false");
-        });
-      }
-      setupVideoHandlers("targetEntity1", "videoPlayer1");
-      setupVideoHandlers("targetEntity2", "videoPlayer2");
+      // Video handling logic
+      document.querySelector("a-scene").addEventListener("targetFound", (event) => {
+        let targetIndex = event.detail.index;
+        console.log("Target Found:", targetIndex);
+
+        // Hide both videos first
+        document.getElementById("video1").setAttribute("visible", "false");
+        document.getElementById("video2").setAttribute("visible", "false");
+
+        // Play the correct video
+        if (targetIndex === 0) {
+          let video1 = document.getElementById("video1");
+          video1.setAttribute("visible", "true");
+          video1.play();
+        } else if (targetIndex === 1) {
+          let video2 = document.getElementById("video2");
+          video2.setAttribute("visible", "true");
+          video2.play();
+        }
+      });
+
+      document.querySelector("a-scene").addEventListener("targetLost", (event) => {
+        let targetIndex = event.detail.index;
+        console.log("Target Lost:", targetIndex);
+
+        if (targetIndex === 0) {
+          document.getElementById("video1").pause();
+          document.getElementById("video1").setAttribute("visible", "false");
+        } else if (targetIndex === 1) {
+          document.getElementById("video2").pause();
+          document.getElementById("video2").setAttribute("visible", "false");
+        }
+      });
     </script>
   </body>
 </html>
