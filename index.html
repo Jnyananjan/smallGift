@@ -1,0 +1,87 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  </head>
+  <body>
+    <!-- First AR Scene for Image 1 -->
+    <a-scene 
+      mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/wirdos.mind;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- Video for Image 1 -->
+        <a-video 
+          id="videoPlayer1" 
+          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try1.mp4" 
+          position="0 0 0" 
+          width="1.5" 
+          height="1" 
+          visible="false" 
+          autoplay
+          loop
+          webkit-playsinline
+          playsinline
+        ></a-video>
+      </a-entity>
+    </a-scene>
+
+    <!-- Second AR Scene for Image 2 -->
+    <a-scene 
+      mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/batch2k24.mind;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- Video for Image 2 -->
+        <a-video 
+          id="videoPlayer2" 
+          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try2.mp4" 
+          position="0 0 0" 
+          width="1.5" 
+          height="1" 
+          visible="false" 
+          autoplay
+          loop
+          webkit-playsinline
+          playsinline
+        ></a-video>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      // Video handling for Image 1
+      document.querySelectorAll("a-scene")[0].addEventListener("targetFound", () => {
+        document.getElementById("videoPlayer1").setAttribute("visible", "true");
+        document.getElementById("videoPlayer1").play();
+      });
+
+      document.querySelectorAll("a-scene")[0].addEventListener("targetLost", () => {
+        document.getElementById("videoPlayer1").pause();
+        document.getElementById("videoPlayer1").setAttribute("visible", "false");
+      });
+
+      // Video handling for Image 2
+      document.querySelectorAll("a-scene")[1].addEventListener("targetFound", () => {
+        document.getElementById("videoPlayer2").setAttribute("visible", "true");
+        document.getElementById("videoPlayer2").play();
+      });
+
+      document.querySelectorAll("a-scene")[1].addEventListener("targetLost", () => {
+        document.getElementById("videoPlayer2").pause();
+        document.getElementById("videoPlayer2").setAttribute("visible", "false");
+      });
+    </script>
+  </body>
+</html>
