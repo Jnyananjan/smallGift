@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR Scan Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content//bbg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .credits-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background: #F6F1DE;
+            color: #000;
+            font-family: "Courier New", monospace;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .scan-button {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2); /* More Transparent */
+            border-radius: 10px;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            justify-content: space-between;
+        }
+        .scan-button img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .scan-text {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #F6F1DE;
+            color: #000;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+        }
+        .popup button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background: #000;
+            color: #F6F1DE;
+            font-family: "Courier New", monospace;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .popup button:hover {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Credits Button -->
+    <button class="credits-button" onclick="showPopup()">Credits</button>
+
+    <div class="container">
+        <!-- 11 Buttons -->
+        <a href="scan1.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan2.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan3.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan4.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan5.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan6.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan7.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan8.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan9.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan10.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+        <a href="scan11.html" class="scan-button">
+            <img src="https://via.placeholder.com/50" alt="Icon">
+            <span class="scan-text">Scan Now</span>
+        </a>
+    </div>
+
+    <!-- Credits Popup -->
+    <div id="popup" class="popup">
+        <p>Credits :-<br> Anansha Di 🫂, ChatGPT 🤡,<br> My Dumb Brain 😆.</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // Show credits popup on page load
+        window.onload = function() {
+            showPopup();
+        };
+    </script>
+
+</body>
+</html>
