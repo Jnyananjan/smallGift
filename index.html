@@ -7,83 +7,49 @@
   </head>
   <body>
     <a-scene 
-      embedded 
-      mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/wirdos.mind, https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/batch2k24.mind" 
+      mindar-image="imageTargetSrc: https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content//batch2k24.mind;" 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights" 
       vr-mode-ui="enabled: false" 
-      device-orientation-permission-ui="enabled: true"
-      mindar-settings="showStats: false;"
+      device-orientation-permission-ui="enabled: false"
     >
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- Target 1 (wirdos.mind) -->
-      <a-entity mindar-image-target="targetIndex: 0">
+      <a-entity mindar-image-target="targetIndex: 0" id="targetEntity">
+        <!-- Video Plane -->
         <a-video 
-          id="video1"
-          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try1.mp4"
-          position="0 0 0"
-          width="1.5"
-          height="1"
+          id="videoPlayer" 
+          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content//unoo.mp4" 
+          position="0 0 0" 
+          width="1.5" 
+          height="1" 
           visible="false"
-          autoplay
-          loop
           webkit-playsinline
           playsinline
         ></a-video>
-      </a-entity>
 
-      <!-- Target 2 (batch2k24.mind) -->
-      <a-entity mindar-image-target="targetIndex: 1">
-        <a-video 
-          id="video2"
-          src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/try2.mp4"
-          position="0 0 0"
-          width="1.5"
-          height="1"
-          visible="false"
-          autoplay
-          loop
-          webkit-playsinline
-          playsinline
-        ></a-video>
+        <!-- Lighting for better visibility -->
+        <a-light type="directional" position="1 1 1" intensity="1.5"></a-light>
+        <a-light type="ambient" intensity="0.5"></a-light>
       </a-entity>
-
     </a-scene>
 
     <script>
-      // Video handling logic
-      document.querySelector("a-scene").addEventListener("targetFound", (event) => {
-        let targetIndex = event.detail.index;
-        console.log("Target Found:", targetIndex);
+      const video = document.getElementById("videoPlayer");
 
-        // Hide both videos first
-        document.getElementById("video1").setAttribute("visible", "false");
-        document.getElementById("video2").setAttribute("visible", "false");
-
-        // Play the correct video
-        if (targetIndex === 0) {
-          let video1 = document.getElementById("video1");
-          video1.setAttribute("visible", "true");
-          video1.play();
-        } else if (targetIndex === 1) {
-          let video2 = document.getElementById("video2");
-          video2.setAttribute("visible", "true");
-          video2.play();
-        }
+      document.querySelector("a-scene").addEventListener("targetFound", () => {
+        video.setAttribute("visible", "true"); // Show video
+        video.components.material.material.map.image.play(); // Play video
       });
 
-      document.querySelector("a-scene").addEventListener("targetLost", (event) => {
-        let targetIndex = event.detail.index;
-        console.log("Target Lost:", targetIndex);
+      document.querySelector("a-scene").addEventListener("targetLost", () => {
+        video.components.material.material.map.image.pause(); // Pause video
+        video.components.material.material.map.image.currentTime = 0; // Reset to beginning
+        video.setAttribute("visible", "false"); // Hide video
+      });
 
-        if (targetIndex === 0) {
-          document.getElementById("video1").pause();
-          document.getElementById("video1").setAttribute("visible", "false");
-        } else if (targetIndex === 1) {
-          document.getElementById("video2").pause();
-          document.getElementById("video2").setAttribute("visible", "false");
-        }
+      video.addEventListener("ended", () => {
+        video.setAttribute("visible", "false"); // Hide when video ends
       });
     </script>
   </body>
