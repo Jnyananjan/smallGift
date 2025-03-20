@@ -35,11 +35,12 @@
             gap: 10px;
             width: 90%;
             max-width: 400px;
+            margin-top: 30px; /* Push all buttons lower */
         }
         .scan-button {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             padding: 10px;
             text-decoration: none;
@@ -47,12 +48,15 @@
             font-weight: bold;
             justify-content: space-between;
         }
+        .scan-button:first-child {
+            margin-top: 100px; /* Moves only the first button down */
+        }
         .scan-button img {
-            max-width: 100px; /* Adjust max width */
-            max-height: 100px; /* Adjust max height */
+            max-width: 100px;
+            max-height: 100px;
             width: auto;
             height: auto;
-            object-fit: contain; /* Ensure aspect ratio is preserved */
+            object-fit: contain;
             border-radius: 5px;
         }
         .scan-text {
@@ -99,7 +103,7 @@
     <button class="credits-button" onclick="showPopup()">Credits</button>
 
     <div class="container">
-        <!-- 11 Buttons -->
+        <!-- 8 Scan Buttons -->
         <a href="scan1.html" class="scan-button">
             <img src="https://dhkyzhpqoreeytuyeioj.supabase.co/storage/v1/object/public/ar-content/Batch2k25.jpg" alt="Icon">
             <span class="scan-text">Scan Now</span>
@@ -148,7 +152,7 @@
             document.getElementById("popup").style.display = "none";
         }
 
-        // Show credits popup on page load
+        // Show credits popup every time the page loads
         window.onload = function() {
             showPopup();
         };
